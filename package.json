@@ -1,0 +1,25 @@
+{
+  "name": "teachers-students-api",
+  "version": "1.0.0",
+  "description": "A REST api where teachers can perform administrative functions for their students",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "mocha"
+  },
+  "author": "Zin Hein",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.15.0",
+    "lodash": "^4.17.21",
+    "mysql2": "^3.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.22"
+  }
+}
