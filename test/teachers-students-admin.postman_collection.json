@@ -1,0 +1,465 @@
+{
+	"info": {
+		"_postman_id": "7043556d-ce95-4de3-acde-63259972759d",
+		"name": "teachers-students-admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7223537"
+	},
+	"item": [
+		{
+			"name": "Register (A teacher can register multiple students)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"response should be 204\", function() {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-T",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"teacher\": \"teacherken@gmail.com\",\n  \"students\":\n    [\n      \"studentjon@gmail.com\",\n      \"studenthon@gmail.com\",\n      \"studentmary@gmail.com\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register (A student can also be registered to multiple teachers)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"response should be 204\", function() {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-T",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"teachers\": [\"teacherjoe@gmail.com\", \"teacherken@gmail.com\", \"teachernick@gmail.com\"],\n  \"student\": \"commonstudent@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register (A student can also be registered to a teacher)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"response should be 204\", function() {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-T",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"teacher\": \"teacherjoe@gmail.com\",\n  \"student\": \"teacherjoe_student@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve common students with single given teacher",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"response should be 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"response should have students from a given teacher\", function() {",
+							"    const { students } = jsonData;",
+							"    pm.expect(students).to.be.an(\"array\");",
+							"    pm.expect(students.length).to.eql(4);",
+							"    pm.expect(students).contains('studentjon@gmail.com');",
+							"    pm.expect(students).contains('studenthon@gmail.com');",
+							"    pm.expect(students).contains('studentmary@gmail.com');",
+							"    pm.expect(students).contains('commonstudent@gmail.com');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-T",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/commonstudents?teacher=teacherken@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"commonstudents"
+					],
+					"query": [
+						{
+							"key": "teacher",
+							"value": "teacherken@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve common students with multiple given teachers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"response should be 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"response should have students from a given teacher\", function() {",
+							"    const { students } = jsonData;",
+							"    pm.expect(students).to.be.an(\"array\");",
+							"    pm.expect(students.length).to.eql(1);",
+							"    pm.expect(students).contains('commonstudent@gmail.com');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-T",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/commonstudents?teacher=teacherken@gmail.com&teacher=teacherjoe@gmail.com&teacher=teachernick@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"commonstudents"
+					],
+					"query": [
+						{
+							"key": "teacher",
+							"value": "teacherken@gmail.com"
+						},
+						{
+							"key": "teacher",
+							"value": "teacherjoe@gmail.com"
+						},
+						{
+							"key": "teacher",
+							"value": "teachernick@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Suspend a student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"response should be 204\", function() {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-T",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"student\": \"studentmary@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/suspend",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"suspend"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve students for notification with students from other teachers mentioned",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"response should be 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"response should have students from a given teacher\", function() {",
+							"    const { recipients } = jsonData;",
+							"    pm.expect(recipients).to.be.an(\"array\");",
+							"    pm.expect(recipients.length).to.eql(4);",
+							"    pm.expect(recipients).contains('studentjon@gmail.com');",
+							"    pm.expect(recipients).contains('studenthon@gmail.com');",
+							"    pm.expect(recipients).contains('commonstudent@gmail.com');",
+							"});",
+							"",
+							"pm.test(\"response should have students from mentioned students\", function() {",
+							"    const { recipients } = jsonData;",
+							"    pm.expect(recipients).to.be.an(\"array\");",
+							"    pm.expect(recipients.length).to.eql(4);",
+							"    pm.expect(recipients).contains('teacherjoe_student@gmail.com');",
+							"});",
+							"",
+							"pm.test(\"response should not have suspended students\", function() {",
+							"    const { recipients } = jsonData;",
+							"    pm.expect(recipients).to.not.contains('studentmary@gmail.com');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-T",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"teacher\":  \"teacherken@gmail.com\",\n  \"notification\": \"Hello students! @teacherjoe_student@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/retrievefornotifications",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"retrievefornotifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve students for notification with students from other teachers mentioned Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"response should be 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"response should have students from a given teacher\", function() {",
+							"    const { recipients } = jsonData;",
+							"    pm.expect(recipients).to.be.an(\"array\");",
+							"    pm.expect(recipients.length).to.eql(3);",
+							"    pm.expect(recipients).contains('studentjon@gmail.com');",
+							"    pm.expect(recipients).contains('studenthon@gmail.com');",
+							"    pm.expect(recipients).contains('commonstudent@gmail.com');",
+							"});",
+							"",
+							"pm.test(\"response should not have suspended students\", function() {",
+							"    const { recipients } = jsonData;",
+							"    pm.expect(recipients).to.not.contains('teachermary@gmail.com');",
+							"});",
+							"",
+							"pm.test(\"response should not have students from other teachers\", function() {",
+							"    const { recipients } = jsonData;",
+							"    pm.expect(recipients).to.not.contains('studentmary@gmail.com');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-T",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"teacher\":  \"teacherken@gmail.com\",\n  \"notification\": \"Hello everyone!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/retrievefornotifications",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"retrievefornotifications"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

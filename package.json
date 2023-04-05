@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "mocha"
+    "unit-test": "mocha test/helpers.test.js",
+    "postman-test": "newman run test/teachers-students-admin.postman_collection.json"
   },
   "author": "Zin Hein",
   "license": "ISC",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "mocha": "^10.2.0",
+    "newman": "^5.3.2",
     "nodemon": "^2.0.22"
   }
 }

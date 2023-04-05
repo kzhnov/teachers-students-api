@@ -8,3 +8,8 @@
 - Run `npm ci`
 - Copy *env.example* to *.env* file and change the variables to appropriate values
 - Run `npm start` and the application should start running
+
+# Testing
+- Unit test can be run with the command `npm run unit-test`
+- Postman collection json file is provided under *test/teachers-students-admin.postman_collection.json*
+- End to end API testing using Postman collection can be run with the command `npm run postman-test`
